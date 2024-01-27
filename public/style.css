@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #f8f9fa;
+}
+nav {
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+nav div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sharpsized {
+  font-family: "nacelleblack";
+  background: linear-gradient(to right, #0ca678, #c2255c);
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  font-size: 2.5rem;
+  box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+}
+.tagline {
+  font-family: "nacellelight";
+  font-size: 1.5rem;
+  letter-spacing: 0.05ch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.tagline h3 {
+  margin: 0;
+}
+@font-face {
+  font-family: "nacellelight";
+  src: url("nacelle-light-webfont.woff2") format("woff2"),
+    url("nacelle-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "nacelleblack";
+  src: url("nacelle-black.woff2") format("woff2"),
+    url("nacelle-black.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "nacelleultralight";
+  src: url("nacelle-ultralight-webfont.woff2") format("woff2"),
+    url("nacelle-ultralight-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "nacelleregular";
+  src: url("nacelle-regular-webfont.woff2") format("woff2"),
+    url("nacelle-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "nacelleitalic";
+  src: url("nacelle-italic-webfont.woff2") format("woff2"),
+    url("nacelle-italic-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "nacellelight_italic";
+  src: url("nacelle-lightitalic-webfont.woff2") format("woff2"),
+    url("nacelle-lightitalic-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "nacellethin";
+  src: url("nacelle-thin-webfont.woff2") format("woff2"),
+    url("nacelle-thin-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
