@@ -59,4 +59,4 @@ jobs:
           app-name: 'sharpsized'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_49442B775E7F459EAD255DEF7D964717 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3ADEEA03F763441C88BD30831308AC6B }}
