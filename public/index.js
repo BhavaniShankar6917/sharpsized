@@ -158,6 +158,7 @@ async function sendToServer(fileformat, quality, width, height, body) {
       return;
     }
     base64 += String.fromCharCode.apply(null, value);
+    //collects all the chunks of data sent from server
     return reader.read().then(readResponse);
   });
 }
