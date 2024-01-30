@@ -107,20 +107,16 @@ input.addEventListener("input", (e) => {
   };
 });
 
+//onclick of resize button
 resizeButton.addEventListener("click", (e) => {
   e.preventDefault();
-  // console.log(
-  //   fileFormat,
-  //   qualityIndicator.value,
-  //   widthInput.value,
-  //   heightInput.value,
-  //   body
-  // );
   document.getElementById("annotation-for-resize").innerText = "Resizing...";
   let loader = document.createElement("span");
   loader.classList.add("loader");
   loader.id = "loader";
   imageContainer.appendChild(loader);
+
+  //sends request
   sendToServer(
     fileFormat,
     qualityIndicator.value,
@@ -130,43 +126,20 @@ resizeButton.addEventListener("click", (e) => {
   );
 });
 
+//sends request
 async function sendToServer(fileformat, quality, width, height, body) {
   let res = await fetch(
-    `http://localhost:3000/${fileFormat}/${qualityIndicator.value}/${widthInput.value}/${heightInput.value}`,
+    `https://sharpsized.azurewebsites.net/${fileFormat}/${qualityIndicator.value}/${widthInput.value}/${heightInput.value}`,
     {
       body,
       method: "POST",
     }
   );
   let base64 = "";
-  // res.text().then(async function getResponseText(value,done) {
-  //   console.log(value.length);
-  //   const base64Response = await fetch(`data:${fileFormat};base64,${value}`);
-  //   const blob = await base64Response.blob();
-  //   let url = URL.createObjectURL(blob);
-  //   let image = document.createElement("img");
-  //   image.classList.add("fit-container");
-  //   image.src = url;
-  //   imageContainer.removeChild(
-  //     document.getElementById("annotation-for-resize")
-  //   );
-  //   imageContainer.removeChild(document.getElementById("loader"));
-  //   imageContainer.appendChild(image);
-  //   download.classList.remove("btn-readonly");
-  //   download.classList.add("btn-active");
-  //   download.download = `image.${fileFormat.split("/")[1]}`;
-  //   download.href = url;
-  //   return;
-
-  //   // return res.text().then(getResponseText);
-  // });
-
   let reader = res.body.getReader();
   reader.read().then(async function readResponse({ done, value }) {
-    //only if done this will execut
-    console.log("outside done", base64.length, done);
+    //only if done this will execute
     if (done) {
-      console.log("inside done", base64.length);
       const base64Response = await fetch(`data:${fileFormat};base64,${base64}`);
       const blob = await base64Response.blob();
       let url = URL.createObjectURL(blob);
@@ -184,7 +157,6 @@ async function sendToServer(fileformat, quality, width, height, body) {
       download.href = url;
       return;
     }
-    // console.log(value.byteLength);
     base64 += String.fromCharCode.apply(null, value);
     return reader.read().then(readResponse);
   });
