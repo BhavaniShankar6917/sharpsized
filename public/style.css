@@ -1,23 +1,73 @@
 body {
+  overflow-x: hidden;
+  font-family: "Inter Tight", sans-serif;
   margin: 0;
   box-sizing: border-box;
   position: relative;
-  background-color: #f8f9fa;
+  background-color: #212529;
+  box-sizing: content-box;
+  min-height: 100vh;
 }
-nav {
-  padding: 2rem 1rem;
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 8px;
+  background-image: linear-gradient(to right, #862e9c, #da77f2);
+}
+.footer {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to right, #862e9c, #da77f2);
+}
+/* .blob {
+  position: absolute;
+  top: 100px;
+  width: 360px;
+  height: 360px;
+  border-radius: 70% 75% 95% 76% / 90% 88% 55% 64%;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    transparent 40%,
+    #862e9c,
+    #da77f2
+  );
+  background-size: 10px 10px;
+} */
+.nav {
+  padding: 1rem 0;
   position: relative;
 }
+.nav::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -2rem;
+  /* background-color: transparent;
+  background-image: linear-gradient(-45deg, #da77f2 25%, #9c36b5 25%);
+  background-size: 50px, 50px; */
+}
 
-nav div {
+.nav div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .sharpsized {
-  font-family: "nacelleblack";
-  background: linear-gradient(to right, #0ca678, #c2255c);
+  font-weight: 700;
+  background: linear-gradient(to right, #9c36b5, #da77f2);
   background-clip: text;
   color: transparent;
   text-align: center;
@@ -25,68 +75,207 @@ nav div {
   box-sizing: content-box;
   margin: 0;
   padding: 0;
+  text-shadow: -1px -2px rgba(52, 58, 64, 0.5);
 }
 .tagline {
-  font-family: "nacellelight";
-  font-size: 1.5rem;
   letter-spacing: 0.05ch;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
 }
-.tagline h3 {
+.tagline em {
+  color: #f8f9fa;
+  font-weight: 500;
+  font-size: 1rem;
   margin: 0;
 }
-@font-face {
-  font-family: "nacellelight";
-  src: url("nacelle-light-webfont.woff2") format("woff2"),
-    url("nacelle-light-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.tagline b {
+  color: #da77f2;
+}
+.resize-cont,
+.image-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100%;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 30px;
+  border: 0.1rem dashed #9c36b5;
+  box-shadow: inset 0 0 0 9999px rgba(52, 58, 64, 0.1);
+}
+.image-cont {
+  gap: 1rem;
+  padding: 0;
 }
 
-@font-face {
-  font-family: "nacelleblack";
-  src: url("nacelle-black.woff2") format("woff2"),
-    url("nacelle-black.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.image-upload-cont {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.image-upload-cont input {
+  display: none;
+}
+.label {
+  font-size: 1rem;
+  color: #f3d9fa;
+  /* color: #da77f2; */
+}
+.image-upload-cont label:hover {
+  cursor: pointer;
+  color: #9c36b5;
+  text-decoration: underline;
+}
+.upload-image-icon {
+  scale: 1.5;
+}
+.resize-options-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.flex-box-hor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.main-section {
+  display: grid;
+  grid-template-columns: 400px 400px;
+  justify-content: center;
+  /* flex-direction: column; */
+  /* align-items: center;
+  justify-content: center; */
+  position: relative;
+  padding: 1rem 1rem;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+@media screen and (max-width: 850px) {
+  .main-section {
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+  }
+  .image-cont {
+    min-height: 300px;
+  }
+}
+.resize-button {
+  accent-color: #da77f2;
+}
+.quality-slider {
+  accent-color: #da77f2;
+}
+.number-input {
+  padding: 0.75rem;
+  max-width: 3rem;
+  border: 1px solid #862e9c;
+  border-radius: 1rem;
+  text-align: center;
+  appearance: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.readonly {
+  background-color: #f8f9fa;
+}
+.readonly:focus {
+  outline: none;
+  border: none;
+}
+.active {
+  background-color: #f3d9fa;
+}
+.size-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.size {
+  font-size: 1.5rem;
+  color: #da77f2;
+}
+.display-none {
+  display: none;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  font-family: "Inter Tight", sans-serif;
+  border-radius: 30px;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+}
+.btn-active {
+  color: #f3d9fa;
+  background-color: #9c36b5;
+}
+.btn-active:hover {
+  background-color: #ae3ec9;
+  cursor: pointer;
+}
+.btn-readonly {
+  background-color: #862e9c;
+  color: #ae3ec9;
 }
 
-@font-face {
-  font-family: "nacelleultralight";
-  src: url("nacelle-ultralight-webfont.woff2") format("woff2"),
-    url("nacelle-ultralight-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.btn-readonly:hover {
+  cursor: not-allowed;
 }
-@font-face {
-  font-family: "nacelleregular";
-  src: url("nacelle-regular-webfont.woff2") format("woff2"),
-    url("nacelle-regular-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.loader {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 5px solid #dace;
+  border-bottom-color: transparent;
+  animation: rotation 1s linear infinite;
 }
-
-@font-face {
-  font-family: "nacelleitalic";
-  src: url("nacelle-italic-webfont.woff2") format("woff2"),
-    url("nacelle-italic-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4rem;
 }
-@font-face {
-  font-family: "nacellelight_italic";
-  src: url("nacelle-lightitalic-webfont.woff2") format("woff2"),
-    url("nacelle-lightitalic-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+.fit-container {
+  object-fit: fill;
+  min-width: 400px;
+  /* min-height: 300px; */
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 30px;
 }
-@font-face {
-  font-family: "nacellethin";
-  src: url("nacelle-thin-webfont.woff2") format("woff2"),
-    url("nacelle-thin-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+/* .loader {
+width: 100%;
+padding: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 2px;
+} */
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.footer-text,
+.footer-link {
+  font-size: 0.85rem;
+  font-weight: 200;
+  color: #f3d9fa;
+  text-decoration: none;
+}
+.footer-link:hover {
+  text-decoration: underline;
 }

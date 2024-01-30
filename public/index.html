@@ -4,22 +4,103 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;1,100;1,200;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+
     <title>sharpsized</title>
   </head>
   <body>
-    <nav>
+    <!-- <div class="blob"></div> -->
+    <nav class="nav">
       <div>
         <h1 class="sharpsized">sharpsized.</h1>
       </div>
     </nav>
     <div class="tagline">
-      <h3>Upload and resize your images. Just like that</h3>
+      <em>Resize images. <b>Just like that.</b></em>
     </div>
-    <form action="submitImage">
-      <input type="file" accept="image/*" title="file" id="input" />
-    </form>
-    <img src="" alt="resized image" id="photo" />
-    <a href="#" download="" id="download">Download</a>
+    <div class="main-section"> 
+      <form class="resize-cont" id="resize-form" name="resize-details">
+        <div class="image-upload-cont" id="image-upload-cont">
+          <label for="input">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="#f3d9fa"
+              class="upload-image-icon"
+            >
+              <path
+                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm480-480v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80ZM240-280h480L570-480 450-320l-90-120-120 160Zm-40-480v560-560Z"
+              />
+            </svg>
+          </label>
+          <label for="input" class="label">Click here to upload</label>
+          <input type="file" accept="image/*" title="file" id="input" />
+        </div>
+        <div class="resize-options-cont">
+          <div class="quality-flex-box flex-box-hor">
+            <label for="quality" class="label">Quality</label>
+            <input
+              type="range"
+              name="quality"
+              min="10"
+              max="100"
+              id="quality"
+              step="1"
+              class="quality-slider"
+              value="75"
+            />
+            <input
+              type="number"
+              title="quality-indicator"
+              class="quality-indicator-badge number-input"
+              id="quality-indicator-badge"
+              ></input
+            >
+          </div>
+          <div class="resize-flex-box flex-box-hor">
+            <label for="resize" class="label">Resize</label>
+            <input
+              type="checkbox"
+              name="resize"
+              class="resize-button"
+              id="resize"
+            />
+          </div>
+          <div class="resize-flex-box flex-box-hor" id="width-cont">
+            <label for="width" class="label">Width</label>
+            <input type="number" id="width" class="number-input readonly" readonly>
+          </div>
+          <div class="resize-flex-box flex-box-hor" id="label-cont">
+            <label for="height" class="label">Height</label>
+            <input type="number" id="height" class="number-input readonly" readonly>
+          </div>
+        </div>
+        <div class="display-none" id="size-details">
+          <span class="file-name label" id="uploaded-file-name"></span>
+          <span class="size" id="uploaded-size"></span>
+        </div>
+        <div class="resize-button-cont">
+          <button class="btn btn-readonly" type="submit" id="resize-button" disabled>Resize</button>
+        </div>  
+      </form>
+      <div class="resize-cont image-cont" id="image-cont">
+       <span class="label" id="annotation-for-resize">Resized image here</span>
+       
+      </div>
+    </div> 
+    <div class="download-button">
+      <a href="#" id="download" class="btn btn-readonly">Download</a>
+    </div> 
+    <footer class="footer">
+      <span class="footer-text">Built with <a href="https://sharp.pixelplumbing.com/" class="footer-link">Sharp JS</a> image processing library</span>
+    </footer>
     <script src="index.js"></script>
   </body>
 </html>

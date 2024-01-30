@@ -7,7 +7,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.static("public"));
-app.post("/image/:fileformat/:width/:height", (req, res) => {
+app.post("/image/:fileformat/:quality/:width/:height", (req, res) => {
   if (req.method == "POST") {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Content-Disposition", "attachment;image.png");
@@ -16,18 +16,27 @@ app.post("/image/:fileformat/:width/:height", (req, res) => {
     let fileFormat = req.params.fileformat;
     let width = parseInt(req.params.width);
     let height = parseInt(req.params.height);
+    let quality = parseInt(req.params.quality);
     req.addListener("data", (chunk) => {
       chunks.push(Buffer.from(chunk));
-      console.log(chunk);
+      // console.log(chunk);
       length += Buffer.from(chunk).length;
     });
     req.addListener("end", () => {
       // res.end("YUP Received you file");
       if (typeof height == "number") {
-        resizeUsingSharp(chunks, length, fileFormat, res, width, height);
+        resizeUsingSharp(
+          chunks,
+          length,
+          fileFormat,
+          res,
+          quality,
+          width,
+          height
+        );
       }
       if (!height) {
-        resizeUsingSharp(chunks, length, fileFormat, res, width);
+        resizeUsingSharp(chunks, length, fileFormat, res, quality, width);
       }
     });
   }
@@ -37,10 +46,12 @@ function resizeUsingSharp(
   length,
   fileFormat,
   res,
+  quality,
   width,
   height = null
 ) {
   const imageData = Buffer.concat(chunks, length);
+  // console.log(fileFormat);
   let originalFile = `original_${Math.round(
     Math.random() * 100000000
   )}.${fileFormat}`;
@@ -51,31 +62,56 @@ function resizeUsingSharp(
     if (e) {
       console.log(e);
     }
-    if (!height) {
-      await sharp(originalFile)
-        .resize({ width, fit: "fill" })
-        .toFile(resizedFile)
-        .then((suc) => {
-          endTheRequest(fileFormat, res, originalFile, resizedFile);
-        });
+    if (fileFormat == "png") {
+      if (!height) {
+        await sharp(originalFile)
+          .resize({ width, fit: "fill" })
+          .png({ quality })
+          .toFile(resizedFile)
+          .then((suc) => {
+            endTheRequest(fileFormat, res, originalFile, resizedFile);
+          });
+      }
+      if (height) {
+        await sharp(originalFile)
+          .resize({ width, height, fit: "fill" })
+          .png({ quality })
+          .toFile(resizedFile)
+          .then((suc) => {
+            endTheRequest(fileFormat, res, originalFile, resizedFile);
+          });
+      }
     }
-    if (height) {
-      await sharp(originalFile)
-        .resize({ width, height, fit: "fill" })
-        .toFile(resizedFile)
-        .then((suc) => {
-          endTheRequest(fileFormat, res, originalFile, resizedFile);
-        });
+    if (fileFormat == "jpeg" || fileFormat == "jpg") {
+      if (!height) {
+        await sharp(originalFile)
+          .resize({ width, fit: "fill" })
+          .jpeg({ quality })
+          .toFile(resizedFile)
+          .then((suc) => {
+            endTheRequest(fileFormat, res, originalFile, resizedFile);
+          });
+      }
+      if (height) {
+        await sharp(originalFile)
+          .resize({ width, height, fit: "fill" })
+          .jpeg({ quality })
+          .toFile(resizedFile)
+          .then((suc) => {
+            endTheRequest(fileFormat, res, originalFile, resizedFile);
+          });
+      }
     }
   });
 }
 function endTheRequest(fileFormat, res, originalFile, resizedFile) {
   let fscr = fs.createReadStream(resizedFile, "base64");
-  fscr.on("data", (chunk) => {
-    // console.log(chunk.length, chunk);
-    res.end(chunk);
+  fscr.on("data", async (chunk) => {
+    console.log(chunk.length);
+    res.write(chunk);
   });
   fscr.on("end", () => {
+    res.end();
     clearFiles(originalFile, resizedFile);
   });
   fscr.on("error", (err) => {
